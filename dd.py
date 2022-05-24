@@ -2,6 +2,8 @@ import sympy
 from tkinter import *
 from sympy.plotting import plot
 
+# 귀여운 나윤이
+
 #gui 창 생성
 root=Tk()
 root.title("접선의 방정식")
