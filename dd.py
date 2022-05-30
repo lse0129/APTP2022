@@ -1,14 +1,14 @@
 import sympy
 from tkinter import *
 from sympy.plotting import plot
-
-# 귀여운 나윤이
+import pygame
 
 #gui 창 생성
 root=Tk()
 root.title("접선의 방정식")
 root.geometry("640x400+100+100")
 root.resizable(width=FALSE, height=FALSE)
+root.option_add("*Font", "맑은고딕 10")
 
 #문자열을 입력 받기 위한 공간
 funtion=StringVar()
@@ -66,18 +66,35 @@ def draw(f, g, f_diff, x1, y1, start, end):
     p1.append(p2[0])
     p1.show()
 
-
-Label(root, text="함수").grid(row=1, column=0)
-Label(root, text="접점").grid(row=2, column=0)
-Label(root, text="x축 범위").grid(row=3, column=0)
+Label(root, text="안녕친구들").grid(row=1, column=1)
+Label(root, text="함수").grid(row=2, column=0)
+Label(root, text="접점").grid(row=3, column=0)
+Label(root, text="x축 범위").grid(row=4, column=0)
 
 #함수, 접점, 범위 입력 받는 빈칸
-Entry(root, textvariable=funtion).grid(row=1, column=1)
-Entry(root, textvariable=var1).grid(row=2, column=1)
-Entry(root, textvariable=domains, width=10).grid(row=3, column=1)
-Entry(root, textvariable=domaine, width=10).grid(row=3, column=2)
+Entry(root, textvariable=funtion).grid(row=2, column=1)
+Entry(root, textvariable=var1).grid(row=3, column=1)
+Entry(root, textvariable=domains, width=10).grid(row=4, column=1)
+Entry(root, textvariable=domaine, width=10).grid(row=4, column=2)
 
 #함수를 실행시키는 버튼
-Button(root, text="DRaW iT", command=input).grid(row=1, column=3)
+Button(root, text="Draw It", command=input).grid(row=9, column=0)
 
-root.mainloop()
+
+
+
+pygame.init()
+
+done = True
+
+def main():
+    global done
+
+    while done:
+        screen.fill(WHITE)
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_1:
+                    print("hello")
+
+#root.mainloop()
