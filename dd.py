@@ -3,30 +3,34 @@ from tkinter import *
 from sympy.plotting import plot
 import pygame
 
+#pygame 초기화
 pygame.init()
+
+#프로그램 제목 및 아이콘 설정
 pygame.display.set_caption("SSE | Alpha")
 icon = pygame.image.load("icon.jpg")
 pygame.display.set_icon(icon)
 
+#프로그램 시작 화면 생성
 startpage = pygame.image.load("startpage.jpg")
-
 size = (532,464)
 screen = pygame.display.set_mode(size)
 
+#프로그램 실행
 done = True
 
 def runProgram():
     global done
     while done:
-        screen.blit(startpage, (0,0))
+        screen.blit(startpage, (0,0)) #프로그램 시작 화면 생성
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+            if event.type == pygame.QUIT: #x누르면 프로그램 종료
                 done = False
-            if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.type == pygame.MOUSEBUTTONDOWN: #마우스 버튼을 클릭하는 시행에 대하여 다음을 실행
                 if event.button == 1:
                     column_index = event.pos[0] // 60
                     row_index = event.pos[1] // 60
-                    if 1 <= column_index <= 6 and 1 <= row_index <= 2 :
+                    if 1 <= column_index <= 6 and 1 <= row_index <= 2 : #클릭한 곳의 좌표가 1번째 버튼의 영역에 들어가면
                         # gui 창 생성
                         root = Tk()
                         root.title("Draw Graph")
@@ -54,7 +58,7 @@ def runProgram():
 
                             sik(f, start, end)
 
-                        # 문자열을 식으로 전환, 자동 미분, 접선의 방정식 생성
+                        # 문자열을 식으로 전환
                         def sik(f, start, end):
                             f = sympy.sympify(f)
                             draw(f, start, end)
@@ -72,17 +76,17 @@ def runProgram():
                         Label(root, text="함수").grid(row=2, column=0)
                         Label(root, text="x축 범위").grid(row=3, column=0)
 
-                        # 함수, 접점, 범위 입력 받는 빈칸
+                        # 함수, 범위 입력 받는 빈칸
                         Entry(root, textvariable=funtion).grid(row=2, column=1)
                         Entry(root, textvariable=domains, width=10).grid(row=3, column=1)
                         Entry(root, textvariable=domaine, width=10).grid(row=3, column=2)
 
-                        # 함수를 실행시키는 버튼
+                        # 함수를 실행 및 종료 시키는 버튼
                         Button(root, text="Draw It", command=input).grid(row=1, column=4)
                         Button(root, text="Quit", command=root.destroy).grid(row=1, column=5)
 
                         root.mainloop()
-                    elif 1 <= column_index <= 6 and 3 <= row_index <= 4 :
+                    elif 1 <= column_index <= 6 and 3 <= row_index <= 4 : #클릭한 곳의 좌표가 2번째 버튼의 영역에 들어가면
                         # gui 창 생성
                         root = Tk()
                         root.title("Draw Tangent Line")
@@ -114,7 +118,7 @@ def runProgram():
 
                             sik(f, x1, start, end)
 
-                        # 문자열을 식으로 전환, 자동 미분, 접선의 방정식 생성
+                        # 문자열을 식으로 전환, 미분 실행, 접선의 방정식 생성
                         def sik(f, x1, start, end):
                             f = sympy.sympify(f)
 
@@ -163,7 +167,7 @@ def runProgram():
 
                         root.mainloop()
 
-                    elif 1 <= column_index <= 6 and 5 <= row_index <= 6 :
+                    elif 1 <= column_index <= 6 and 5 <= row_index <= 6 : #클릭한 곳의 좌표가 3번째 버튼의 영역에 들어가면
                         # gui 창 생성
                         root = Tk()
                         root.title("Calculate Integral")
@@ -182,7 +186,7 @@ def runProgram():
                         x = sympy.symbols("x")
                         y = sympy.symbols("y")
 
-                        # 함수, 접점, x의 범위를 입력 받음
+                        # 함수, 적분 범위, x의 범위를 입력 받음
                         def input():
                             f = funtion.get()
 
@@ -200,7 +204,7 @@ def runProgram():
 
                             sik(f, x1, x2, start, end)
 
-                        # 문자열을 식으로 전환, 자동 미분, 접선의 방정식 생성
+                        # 문자열을 식으로 전환, 부정적분, 정적분 실행
                         def sik(f, x1, x2, start, end):
                             f = sympy.sympify(f)
 
@@ -223,8 +227,6 @@ def runProgram():
                             Label(root, text="적분 결과 :").grid(row=8, column=0)
                             Label(root, text=result).grid(row=8, column=1)
 
-                            line1= x1
-                            line1 =sympy.sympify(line1)
                             p1 = plot(f, (x, start, end), show=False, legend=True)
 
                             p1.show()
@@ -249,5 +251,6 @@ def runProgram():
 
         pygame.display.update()
 
+#프로그램 실행
 runProgram()
 pygame.quit()
